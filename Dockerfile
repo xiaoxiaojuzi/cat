@@ -1,10 +1,6 @@
-FROM maven
-WORKDIR /tmp
-ADD . /tmp
-RUN mvn clean install
-
 FROM adoptopenjdk:11-jre-hotspot
-ARG JAR_FILE=/tmp/target/*.jar
-COPY --from=0 ${JAR_FILE} cat-0.0.1-SNAPSHOT.jar
+WORKDIR /tmp
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/cat-0.0.1-SNAPSHOT.jar"]
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} /tmp/application.jar
+ENTRYPOINT ["java","-jar","application.jar"]
