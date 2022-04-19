@@ -134,4 +134,6 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ssr-devsecops-cat
-        run: docker push $ECR_REGISTRY/$ECR_REPOSITORY:$CACHE_IAMGE_TAG
+        run: |
+          docker tag ${{ env.CACHE_IAMGE_TAG }} $ECR_REGISTRY/$ECR_REPOSITORY:$CACHE_IAMGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$CACHE_IAMGE_TAG
