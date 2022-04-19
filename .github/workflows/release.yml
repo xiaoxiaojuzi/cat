@@ -76,11 +76,6 @@ jobs:
     steps:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      - id: image-cache
-        uses: actions/cache@v2
-        with:
-          path: ./image-cache
-          key: image-cache-${{ runner.os }}
       - run: ls -al ./image-cache
       - name: Load image
         run: |
