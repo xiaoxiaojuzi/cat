@@ -80,6 +80,18 @@ jobs:
       - name: Load image
         run: |
           docker load --input artifacts/${{ env.CACHE_IAMGE_NAME }}
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@2a2157eb22c08c9a1fac99263430307b8d1bc7a2
+        with:
+          image-ref: ${{ env.CACHE_IAMGE_TAG }}
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
       - uses: actions/checkout@v3
       - name: Run Snyk to check Docker image for vulnerabilities
         continue-on-error: true
