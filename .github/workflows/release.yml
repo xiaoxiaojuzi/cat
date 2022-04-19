@@ -40,6 +40,30 @@ jobs:
         with:
           name: artifacts
           path: ${{ env.CACHE_IAMGE_NAME }}
+  analyze:
+    name: Analyze-CodeQL
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'java' ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
   security:
     permissions:
       contents: read # for actions/checkout to fetch code
