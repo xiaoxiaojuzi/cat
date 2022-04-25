@@ -23,11 +23,13 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
-          architecture: 'arm64'
+          architecture: 'arm'
       - name: Run Tests
         run: |
           ls -l /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/11.0.14-101/arm/bin/
           file /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/11.0.14-101/arm/bin/java
+          java -version
+          /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/11.0.14-101/arm/bin/java -version
       - name: Set up Maven
         uses: stCarolas/setup-maven@v4.3
         with:
