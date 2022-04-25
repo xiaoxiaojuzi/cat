@@ -24,7 +24,11 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
       - name: Set up Maven
-        uses: LucaFeger/action-maven-cli@master
+        uses: stCarolas/setup-maven@v4.3
+        with:
+          maven-version: 3.8.2
+      - name: Run Tests
+        run: ls -l /opt/hostedtoolcache/maven/3.8.5
       - name: Run Tests
         run: mvn test
       - name: Build with Mavn
