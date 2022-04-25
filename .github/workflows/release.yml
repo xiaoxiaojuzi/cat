@@ -24,9 +24,6 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           architecture: 'arm'
-      - name: Run1
-        run: |
-          type mvn
       - name: Set up Maven
         uses: stCarolas/setup-maven@v4.3
         with:
