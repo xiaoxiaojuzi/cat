@@ -15,7 +15,7 @@ jobs:
     permissions:
       contents: read
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: production
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 11
