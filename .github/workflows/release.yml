@@ -23,6 +23,7 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
+          architecture: 'arm'
       - name: Run1
         run: |
           type mvn
