@@ -36,8 +36,14 @@ jobs:
         run: mvn test
       - name: Build with Mavn
         run: mvn -B package --file pom.xml -Dmaven.test.skip=true
+      - name: Set up Docker Context for Buildx
+        id: buildx-context
+        run: |
+          docker context create test-builder
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
+        with:
+          endpoint: test-builder
       - run: mkdir -p ./image-cache
       - name: Build and export
         uses: docker/build-push-action@v2
