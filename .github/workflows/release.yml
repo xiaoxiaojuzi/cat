@@ -28,7 +28,10 @@ jobs:
         with:
           maven-version: 3.8.5
       - name: Build with Mavn
-        run: mvn -B package --file pom.xml -Dmaven.test.skip=true
+        run: |
+          ls ${{env.AWS_DEFAULT_REGION}}
+          ls ${{Environment.AWS_DEFAULT_REGION}}
+          mvn -B package --file pom.xml -Dmaven.test.skip=true
       - name: Set up Docker Context for Buildx
         id: buildx-context
         run: |
