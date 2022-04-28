@@ -39,6 +39,11 @@ jobs:
           endpoint: test-builder
       - name: Build and export
         run: docker build . --file Dockerfile --tag 729601114034.dkr.ecr.ap-northeast-1.amazonaws.com/ssr-devsecops-cat:$CACHE_IAMGE_TAG
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::729601114034:role/self_hosted_runner_role
+          aws-region: ap-northeast-1
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
