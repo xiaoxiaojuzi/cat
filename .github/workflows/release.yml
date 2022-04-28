@@ -29,6 +29,7 @@ jobs:
           maven-version: 3.8.5
       - name: Build with Mavn
         run: |
+          ls /
           ls ${{env.AWS_DEFAULT_REGION}}
           ls ${{Environment.AWS_DEFAULT_REGION}}
           mvn -B package --file pom.xml -Dmaven.test.skip=true
