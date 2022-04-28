@@ -17,6 +17,10 @@ jobs:
     name: Build
     runs-on: production
     steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ap-northeast-1
       - uses: actions/checkout@v3
       - name: Set up JDK 11
         uses: actions/setup-java@v3
@@ -39,12 +43,6 @@ jobs:
           endpoint: test-builder
       - name: Build and export
         run: docker build . --file Dockerfile --tag 729601114034.dkr.ecr.ap-northeast-1.amazonaws.com/ssr-devsecops-cat:$CACHE_IAMGE_TAG
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: arn:aws:iam::729601114034:role/self_hosted_runner_role
-          aws-region: ap-northeast-1
-          web-identity-token-file: /var/run/secrets/eks.amazonaws.com/serviceaccount/token
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
