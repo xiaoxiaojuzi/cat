@@ -37,15 +37,9 @@ jobs:
         uses: docker/setup-buildx-action@v1
         with:
           endpoint: test-builder
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
       - name: Build and export
-        run: docker build . --file Dockerfile --tag ${{ env.CACHE_IAMGE_TAG }}
+        run: docker build . --file Dockerfile --tag 729601114034.dkr.ecr.ap-northeast-1.amazonaws.com/ssr-devsecops-cat:$CACHE_IAMGE_TAG
       - name: Push image to Amazon ECR
         env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ssr-devsecops-cat
-        run: |
-          docker tag ${{ env.CACHE_IAMGE_TAG }} $ECR_REGISTRY/$ECR_REPOSITORY:$CACHE_IAMGE_TAG
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$CACHE_IAMGE_TAG
+        run: docker push 729601114034.dkr.ecr.ap-northeast-1.amazonaws.com/ssr-devsecops-cat:$CACHE_IAMGE_TAG
