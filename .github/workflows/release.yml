@@ -15,7 +15,7 @@ jobs:
     permissions:
       contents: read
     name: Build
-    runs-on: production
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 11
@@ -29,6 +29,10 @@ jobs:
           maven-version: 3.8.5
       - name: Build with Mavn
         run: mvn -B package --file pom.xml -Dmaven.test.skip=true
+      - name: tfsec
+        uses: tfsec/tfsec-sarif-action@main
+        with:
+          sarif_file: tfsec.sarif         
       - name: Set up Docker Context for Buildx
         id: buildx-context
         run: |
