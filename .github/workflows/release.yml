@@ -30,7 +30,7 @@ jobs:
       - name: Build with Mavn
         run: mvn -B package --file pom.xml -Dmaven.test.skip=true
       - name: tfsec
-        uses: tfsec/tfsec-sarif-action@main
+        uses: aquasecurity/tfsec-sarif-action@v0.1.0
         with:
           sarif_file: tfsec.sarif
       - name: Upload SARIF file
